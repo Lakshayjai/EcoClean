@@ -1,38 +1,79 @@
+
 package com.example.portfolioapp;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.*;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-    Button btnContact;
+import java.util.HashMap;
+import java.util.Map;
+
+public class EcoCleanActivity extends AppCompatActivity {
+
+    EditText etAddress;
+    TextView tvLocation;
+    Button btnGetLocation, btnRequest;
+
+    FusedLocationProviderClient fusedLocationClient;
+    double latitude = 0, longitude = 0;
+
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ecoclean);
 
-        // Initialize button
-        btnContact = findViewById(R.id.btnContact);
+        etAddress = findViewById(R.id.etAddress);
+        tvLocation = findViewById(R.id.tvLocation);
+        btnGetLocation = findViewById(R.id.btnGetLocation);
+        btnRequest = findViewById(R.id.btnRequest);
 
-        // Set click listener
-        btnContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openEmail();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        db = FirebaseFirestore.getInstance();
+
+        btnGetLocation.setOnClickListener(v -> getLocation());
+        btnRequest.setOnClickListener(v -> sendRequest());
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }
+
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                tvLocation.setText("Lat: " + latitude + " , Lng: " + longitude);
+            } else {
+                tvLocation.setText("Unable to fetch location");
             }
         });
     }
 
-    // Method to open email intent
-    private void openEmail() {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:lakshay@example.com"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding Portfolio App");
-        startActivity(intent);
-    }
+    private void sendRequest() {
+        String address = etAddress.getText().toString();
+
+        if (address.isEmpty()) {
+            Toast.makeText(this, "Enter address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, Object> request = new HashMap<>();
+        request.put("address", address);
+        request.put("latitude", latitude);
+        request.put("longitude", longitude);
+        request.put("status", "pending");
 }
