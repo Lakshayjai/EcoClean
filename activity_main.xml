@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Passionate developer with strong interest in problem solving, Android development and full stack web development."
-            android:layout_marginBottom="16dp" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
-        <!-- Skills Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skills"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EcoClean - Request Pickup"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
 
-        <TextView
-            android:id="@+id/tvSkills"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Java, C++, Android, HTML, CSS, JavaScript"
-            android:layout_marginBottom="16dp" />
+    <EditText
+        android:id="@+id/etAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Address" />
 
-        <!-- Projects Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Projects"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnGetLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Current Location"
+        android:layout_marginTop="12dp" />
 
-        <TextView
-            android:id="@+id/tvProjects"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="• Netflix Clone\n• E-Certify System\n• AI Chrome Extension"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location not fetched"
+        android:layout_marginTop="12dp" />
 
-        <!-- Contact Button -->
-        <Button
-            android:id="@+id/btnContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contact Me" />
+    <Button
+        android:id="@+id/btnRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request Pickup"
+        android:layout_marginTop="20dp" />
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>
