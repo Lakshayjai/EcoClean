@@ -1,34 +1,37 @@
 
-# Portfolio App (Android)
+# EcoClean App
 
 ## Overview
-This is a simple Android Portfolio Application developed using Java and XML. The app displays personal details such as name, about section, skills, and projects. It also provides a contact button to reach the developer via email.
+EcoClean is an Android application that allows users to request garbage pickup services. The app collects the user's location coordinates and stores the request in Firebase Firestore, enabling admins to view and act on pickup requests.
 
 ## Features
-- Clean and simple UI
-- Displays personal profile information
-- Skills and project listing
-- Contact button using email intent
+- Request garbage pickup
+- Fetch real-time user location
+- Store data in Firebase Firestore
+- Simple and clean UI
 
 ## Technologies Used
 - Java
 - XML
-- Android Studio
+- Firebase Firestore
+- Google Location Services
 
 ## Project Structure
-- MainActivity.java → Handles UI logic and button interaction
-- activity_main.xml → Defines layout of the app
+- EcoCleanActivity.java → Handles location and Firestore logic
+- activity_ecoclean.xml → UI layout for request screen
 
 ## How It Works
-- The app loads profile data on launch
-- User can scroll through sections
-- Clicking "Contact Me" opens email client
+- User enters address
+- Fetches current GPS location
+- Clicks "Request Pickup"
+- Data (address + coordinates) is stored in Firestore
+- Admin can view and act on requests
 
 ## Future Improvements
-- Add profile image
-- Integrate social media links
-- Use RecyclerView for projects
-- Add animations and modern UI
+- Admin dashboard with map view
+- Real-time tracking of pickup agent
+- Push notifications
+- User authentication
 
 ## Author
 Lakshay Jain
